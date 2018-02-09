@@ -1,0 +1,11 @@
+.sass-cache/
+node_modules/
+webroot/
+src/Scripts/component/build/
+*.map
+*.zip
+*.bat
+*.md
+npm-debug.log
+npm-debug.log.*
+!runBuild.bat
