@@ -1,0 +1,1 @@
+當/writer被訪問的時候，這句話會被寫到zz.txt裏面歐當/writer被訪問的時候，這句話會被寫到zz.txt裏面歐當/writer被訪問的時候，這句話會被寫到zz.txt裏面歐當/writer被訪問的時候，這句話會被寫到zz.txt裏面歐當/writer被訪問的時候，這句話會被寫到zz.txt裏面歐
