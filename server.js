@@ -17,25 +17,29 @@ var server = http.createServer(app);
 
 
 // 設定app裏面的方法
-app.get('/', function(request, response){ //我們要處理URL為 "/" 的HTTP GET請求
-    fs.createReadStream('./A.gif').pipe(response)
-    // createReadStream創造閱讀流，指向一個檔案來讀取，然後這件事情實際上是response(回應) 時候發生的，所以用pipe把他綁回去
-    // 使用流的好處是 它是一點一點的處理的，可以使用在很大的檔案上 影片 音樂上而不會把佔存弄爆炸
+// app.get('/', function(request, response){ //我們要處理URL為 "/" 的HTTP GET請求
+//     fs.createReadStream('./A.gif').pipe(response)
+//     // createReadStream創造閱讀流，指向一個檔案來讀取，然後這件事情實際上是response(回應) 時候發生的，所以用pipe把他綁回去
+//     // 使用流的好處是 它是一點一點的處理的，可以使用在很大的檔案上 影片 音樂上而不會把佔存弄爆炸
 
-    console.log(process.cwd()) // process.cwd() 可以得到相對路徑(指到執行node的那一層)
+//     console.log(process.cwd()) // process.cwd() 可以得到相對路徑(指到執行node的那一層)
 
-    /**/
-    // fs.readFil 單純的讀取(一口氣讀完) 一般來說TXT的檔案可以使用這個方法
-    // fs.readFil()是一個非同步動作， fs.readFileSync()則是同步 小心造成塞車
-    fs.readFile('A.gif', function (error, data) {
-      if (error) throw err; // throw 扔出的意思，拋出錯誤也會使整個node停止下來
-      //response.send(data); // 如果回覆一個data 然後它原本是一個二進制檔案... 它會變成用下載的 (如果是字串就直接把字串印出來)
-      console.log(data) // 可以看到它回應了一個 Buffer 物件 (圖片/音樂/影片...二進制等檔案會用此方式呈現出來 文字檔以外的檔案多是二進制)
-      console.log("是否Buffer物件？", Buffer.isBuffer(data));
-      console.log("Buffer大小：", data.length); // buf.length這是一件Buffer物件的大小，注意這不一定是資料的總長度，只是代表了Buffer在記憶體中的總大小。
-      // 可以用slice(分割反回新的) write(把資料寫入特定的位置)等等操作操作data 的 Buffer二進制碼
-    })
-});
+//     /**/
+//     // fs.readFil 單純的讀取(一口氣讀完) 一般來說TXT的檔案可以使用這個方法
+//     // fs.readFil()是一個非同步動作， fs.readFileSync()則是同步 小心造成塞車
+//     fs.readFile('A.gif', function (error, data) {
+//       if (error) throw err; // throw 扔出的意思，拋出錯誤也會使整個node停止下來
+//       //response.send(data); // 如果回覆一個data 然後它原本是一個二進制檔案... 它會變成用下載的 (如果是字串就直接把字串印出來)
+//       console.log(data) // 可以看到它回應了一個 Buffer 物件 (圖片/音樂/影片...二進制等檔案會用此方式呈現出來 文字檔以外的檔案多是二進制)
+//       console.log("是否Buffer物件？", Buffer.isBuffer(data));
+//       console.log("Buffer大小：", data.length); // buf.length這是一件Buffer物件的大小，注意這不一定是資料的總長度，只是代表了Buffer在記憶體中的總大小。
+//       // 可以用slice(分割反回新的) write(把資料寫入特定的位置)等等操作操作data 的 Buffer二進制碼
+//     })
+// });
+
+app.get('/',function(request, response){
+  fs.createReadStream('./index.html').pipe(response)
+})
 
 app.get('/recording', function(request, response){
   var time = (new Date).getFullYear()+'/'+(new Date).getMonth()+'/'+(new Date).getDate()+'/'+(new Date).getHours()+':'+(new Date).getMinutes()+':'+(new Date).getSeconds()
@@ -107,6 +111,6 @@ app.get('/query',function(request, response){
   response.json(request.query); // 回應網址 ? 後面的參數，並使用json整理好喔
 });
 
-server.listen(9999,'192.168.19.105',function(){
-  console.log('HTTP伺服器在 http://192.168.19.105:9999/ 上運行~');
+server.listen(9999,function(){
+  console.log('HTTP伺服器在 http://localhost:9999/ 上運行~');
 }); // 設訂一下這個伺服器在什麼位置上

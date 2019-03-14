@@ -3,9 +3,45 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>這是首頁</title>
+<script type="text/javascript">
+
+    let promiseGetImg = new Promise((resolve, reject) =>{ // 這兩個參數一定要放，類似 Return 丟東西回去給then()方法
+        console.log('promiseGetImg 開始跑囉')
+      var img = new Image();
+      //img.src = 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92p.png' // 錯誤網址
+      img.src = 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png' // 正確網址
+      img.onload = function(){
+          console.log('new Promise內成功');
+        resolve(img) // 解決
+      }
+      img.onerror = function(){
+       console.log('new Promise內失敗');
+       reject(img) // 失敗了 onerror自己也會丟錯誤
+      }
+    })
+    
+    console.log(promiseGetImg)
+    // 宣告完 new Promise 內有可立即執行的操作還是會先跑，異步操作會進入待機狀況
+    // 所以第一個完成的是第三行的Console
+    // 接下來會執行第十七行Console，同時間異步也開始
+    // 接下來才會跑 img.onload 結果，最後異步操作結束後才會跑 then
+    
+    promiseGetImg.then(
+      (resolve) =>{ // 接下來才是把一些成功或失敗的操作用 then 方法綁再一起
+        // 完成
+        console.log('成功');
+        console.log(promiseGetImg)
+      },
+      (reject) => {
+        // 拒绝
+        console.log('失敗');
+        throw reject;// 這邊也丟了一次錯誤
+    });
+    </script>
 </head>
 
 <body>
 <h1>Hello Node.js & express conponnet~</h1>
 </body>
+
 </html>
