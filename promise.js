@@ -1,3 +1,4 @@
+// 這支檔案可以直接用 node promise.js 執行起來
 var http = require('http');  // 調用Node自帶的模組"http"
 var fs = require('fs'); //  調用Node自帶的模組"fs" (filesystem)，專門用來操作 (讀 寫 刪除 編輯 移動)伺服器主機上的實體檔案
 
@@ -10,6 +11,7 @@ fs.readFile("zzz.txt", function(err, contents) { // Callback 回調方式
 console.log("Hi!"); // 一樣是這邊先跑，然後才跑 zzz.txt 讀取結果 因為讀取檔案是非同步操作
 
 // 下面 改用promise 的方法試試看
+console.log(process); 
 
 let promise = new Promise(function(resolve, reject){
   fs.readFile("zz.txt",function(err, contents) { // Callback 回調方式

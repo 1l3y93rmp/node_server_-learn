@@ -111,6 +111,12 @@ app.get('/query',function(request, response){
   response.json(request.query); // 回應網址 ? 後面的參數，並使用json整理好喔
 });
 
+app.use(express.static(__dirname)); //指定靜態檔案資料夾可在前台呈現
+// 備註: __dirname 是node.js關鍵字，代表著目前 sdserver.js所在的‵實體目錄‵
+// 可在後面用字串的方式加入資料夾
+// 因此可做到虛擬路徑:
+// app.use('/hello',express.static(__dirname + '/images')); // 實體路徑在/images 但是前台看到是 /hello
+
 server.listen(9999,function(){
   console.log('HTTP伺服器在 http://localhost:9999/ 上運行~');
 }); // 設訂一下這個伺服器在什麼位置上
